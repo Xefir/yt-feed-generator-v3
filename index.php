@@ -128,9 +128,9 @@ usort($allvids, 'cmp');
 // Fix to include CDATA (from http://stackoverflow.com/a/20511976)
 class SimpleXMLElementExtended extends SimpleXMLElement
 {
-	public function addChildWithCDATA($name, $value = null)
+	public function addChildWithCDATA($name, $value = null, $namespace = null)
 	{
-		$new_child = $this->addChild($name);
+		$new_child = $this->addChild($name, null, $namespace);
 
 		if (isset($new_child)) {
 			$node = dom_import_simplexml($new_child);
@@ -167,7 +167,7 @@ for ($v = 0; $v < $nb_entries; $v++) {
 		</table>');
 	$item->guid = $link;
 	$item->pubDate = date(DATE_RSS, strtotime($allvids[$v]['snippet']['publishedAt']));
-	$item->addChild('dc:creator', $allvids[$v]['snippet']['channelTitle'], 'http://purl.org/dc/elements/1.1/');
+	$item->addChildWithCDATA('dc:creator', $allvids[$v]['snippet']['channelTitle'], 'http://purl.org/dc/elements/1.1/');
 }
 
 $rss->saveXML('rss.xml');
