@@ -100,8 +100,7 @@ foreach ($playlists as $p) {
 // we have to fetch every video in batches of 50.
 $allvids = array();
 for ($i = 0; $i < count($allitems); $i = $i + 50) {
-	$j = isset($allitems[$i + 50]) ? $i + 50 : (count($allitems) - 1) % 50;
-	$rvids = get_real_videos(array_slice($allitems, $i, $j));
+	$rvids = get_real_videos(array_slice($allitems, $i, 50));
 	if ($rvids) {
 		foreach ($rvids as $r) {
 			$allvids[] = $r;
